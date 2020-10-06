@@ -18,28 +18,28 @@ probOfBeingBiasedCoin_4c = np.zeros((5,100))
 probOfBeingBiasedCoin_4d = np.zeros((5,100))
 
 
-def flipCoin_4(coinType,numFlip):
+def flipCoin_4(coinType,numFlip):                                 #Function with coin type and number of flips as parameters.
     global fairHeads,biasedHeads,fairCoinProb,biasedCoinProb
     flipResult = ""
     flipNum = 0
     probIfFair = 1
     probIfBiased = 1
 
-    if(numFlip < 1):
+    if(numFlip < 1):                                              #Protection against improper inputs
         return "Not a valid number of coin flips"
 
-    if(coinType == "fair"):
+    if(coinType == "fair"):                                       #Sets heads probability based on coin type input
         heads = fairHeads
     elif(coinType == "biased"):
         heads = biasedHeads
     else:
         return "Not a valid coin type"
 
-    for flipNum in range(numFlip):
+    for flipNum in range(numFlip):                                #Iterates number of flips to create a pattern
         randNum = random.randrange(0,100,1)
         if(randNum <= heads*100):
             flipResult += "H"
-            probIfFair *= fairHeads
+            probIfFair *= fairHeads                               #Calculate probability of biased coins for 4c/4d
             probIfBiased *= biasedHeads
         else:
             flipResult += "T"
@@ -47,7 +47,7 @@ def flipCoin_4(coinType,numFlip):
             probIfBiased *= (1-biasedHeads)
         flipNum += 1
     
-    probOfBeingBiasedCoin = probIfBiased*biasedCoinProb/(probIfBiased*biasedCoinProb+probIfFair*fairCoinProb)
+    probOfBeingBiasedCoin = probIfBiased*biasedCoinProb/(probIfBiased*biasedCoinProb+probIfFair*fairCoinProb) #Calculated based on 3c
     return [flipResult,probIfFair,probIfBiased,probOfBeingBiasedCoin]
 
 print("4.1(a/b)")
@@ -55,9 +55,9 @@ print()
 for coinType in coinFlipTypes_4a:
     [sequence,probIfFair,probIfBiased,probOfBeingBiasedCoin] = flipCoin_4(coinType,coinFlipNums_4a)
     print(str(coinFlipNums_4a),"Flips on",coinType,"-",sequence)
-    print("Probability of Sequence if Fair Coin:",probIfFair)
-    print("Probability of Sequence if Biased Coin:",probIfBiased)
-    print("Probability of Coin Being Biased Based on Sequence:",probOfBeingBiasedCoin)
+    #print("Probability of Sequence if Fair Coin:",probIfFair)
+    #print("Probability of Sequence if Biased Coin:",probIfBiased)
+    #print("Probability of Coin Being Biased Based on Sequence:",probOfBeingBiasedCoin)
     print()
 
 print("_____________________________________________________________________________")
@@ -72,7 +72,7 @@ for independentRun in range (maxIndRuns):
         print("Probability of Sequence if Fair Coin:",probIfFair)
         print("Probability of Sequence if Biased Coin:",probIfBiased)
         print("Probability of Coin Being Biased Based on Sequence:",probOfBeingBiasedCoin)
-        probOfBeingBiasedCoin_4c[independentRun][coinFlip] = probOfBeingBiasedCoin*100
+        probOfBeingBiasedCoin_4c[independentRun][coinFlip] = probOfBeingBiasedCoin*100  #Calculate probability per flip per run
         coinFlip += 1
         print("Coin Flip Number:",coinFlip)
         print()
@@ -92,7 +92,7 @@ for independentRun in range (maxIndRuns):
         print("Probability of Sequence if Fair Coin:",probIfFair)
         print("Probability of Sequence if Biased Coin:",probIfBiased)
         print("Probability of Coin Being Biased Based on Sequence:",probOfBeingBiasedCoin)
-        probOfBeingBiasedCoin_4d[independentRun][coinFlip] = probOfBeingBiasedCoin*100
+        probOfBeingBiasedCoin_4d[independentRun][coinFlip] = probOfBeingBiasedCoin*100  #Calculate probability per flip per run
         coinFlip += 1
         print("Coin Flip Number:",coinFlip)
         print()
